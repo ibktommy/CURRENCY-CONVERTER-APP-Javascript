@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Converter (JS API)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="input-error">Please fill in all input fields</div>
+  <div class="code-error">Currency code is invalid</div>
+  <div class="container">
+    <h1 class="title">Currency Converter APP</h1>
+    <form class="form">
+      <div class="input-group">
+        <label for="amount">Enter Amount To Convert</label>
+        <input type="number" id="amount">
+      </div>
+      <div class="input-group">
+        <label for="from-currency">From Currency</label>
+        <input type="text" id="from-currency">
+      </div>
+      <div class="input-group">
+        <label for="to-currency">To Currency</label>
+        <input type="text" id="to-currency">
+      </div>
+      <button type="submit">Click to Convert</button>
+    </form>
+    <div class="output"></div>
+  </div>
+
+
+
+  <script src="app.js"></script>
+</body>
+
+</html>
