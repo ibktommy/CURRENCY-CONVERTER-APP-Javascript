@@ -8,7 +8,7 @@
       PROJECT DETAILS
     </a>
     <span> | </span>
-    <a href="https://ibktommy-currency-converter-app-js.netlify.app/">
+    <a href="https://currency-converter-app-js.netlify.app/">
       PROJECT WEBSITE
     </a>
   </h3>
