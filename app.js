@@ -17,9 +17,11 @@ function getRate(e) {
 
 // FETCH DATA USING FETCH API
 // function fetchData() {
-//     fetch(
-//         "http://data.fixer.io/api/latest?access_key=9f9646efe9adebaf5fc0bfdab570fdda&format=1"
-//     )
+//     const url =
+//         "http://api.exchangeratesapi.io/v1/latest?access_key=3436aba616b20a284b3d12a92d478821";
+//     const proxyURL = "https://api.allorigins.win/raw?url=";
+
+//     fetch(`${proxyURL}${url}`)
 //         .then((response) => {
 //             return response.json();
 //         })
@@ -60,43 +62,50 @@ function getRate(e) {
 
 // FETCH DATA USING ASYNC AWAIT
 async function fetchData() {
-    let url =
-        "http://data.fixer.io/api/latest?access_key=9f9646efe9adebaf5fc0bfdab570fdda&format=1";
+    try {
+        const url =
+            "http://api.exchangeratesapi.io/v1/latest?access_key=3436aba616b20a284b3d12a92d478821";
+        const proxyURL = "https://api.allorigins.win/raw?url=";
 
-    // Fetching Data and Setting Parameters
-    const response = await fetch(url);
-    const responseData = await response.json();
-    const date = await responseData.date;
-    const currencyRates = await responseData.rates;
-    amountValue = parseInt(amount.value);
-    fromValue = fromCurrency.value.toUpperCase();
-    toValue = toCurrency.value.toUpperCase();
+        // Fetching Data
+        const response = await fetch(`${proxyURL}${url}`);
+        const responseData = await response.json();
+        const date = await responseData.date;
 
-    // Converter Calculation
-    baseCurrency = (await currencyRates[toValue]) * amountValue;
-    console.log(baseCurrency);
-    converter = parseFloat(
-        (baseCurrency / currencyRates[fromValue]).toFixed(2)
-    );
+        // Setting Parameters
+        const currencyRates = await responseData.rates;
+        amountValue = parseInt(amount.value);
+        fromValue = fromCurrency.value.toUpperCase();
+        toValue = toCurrency.value.toUpperCase();
 
-    // Set Error messages and Display Result
-    if (
-        amount.value === "" ||
-        fromCurrency.value === "" ||
-        toCurrency.value === ""
-    ) {
-        inputError.classList.add("show");
-        result.innerHTML = "";
-        setTimeout(() => {
-            inputError.classList.remove("show");
-        }, 2500);
-    } else if (isNaN(converter)) {
-        codeError.classList.add("show");
-        result.innerHTML = "";
-        setTimeout(() => {
-            codeError.classList.remove("show");
-        }, 2500);
-    } else {
-        result.innerHTML = `As at "${date}" <br>${amountValue}(${fromValue}) ==> ${converter}(${toValue})`;
+        // Converter Calculation
+        baseCurrency = (await currencyRates[toValue]) * amountValue;
+        console.log(baseCurrency);
+        converter = parseFloat(
+            (baseCurrency / currencyRates[fromValue]).toFixed(2)
+        );
+
+        // Set Error messages and Display Result
+        if (
+            amount.value === "" ||
+            fromCurrency.value === "" ||
+            toCurrency.value === ""
+        ) {
+            inputError.classList.add("show");
+            result.innerHTML = "";
+            setTimeout(() => {
+                inputError.classList.remove("show");
+            }, 2500);
+        } else if (isNaN(converter)) {
+            codeError.classList.add("show");
+            result.innerHTML = "";
+            setTimeout(() => {
+                codeError.classList.remove("show");
+            }, 2500);
+        } else {
+            result.innerHTML = `As at "${date}" <br>${amountValue}(${fromValue}) ==> ${converter}(${toValue})`;
+        }
+    } catch (error) {
+        return (result.innerHTML = `ERROR: ${error}`);
     }
 }
